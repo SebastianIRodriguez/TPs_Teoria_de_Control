@@ -48,9 +48,17 @@ tiempo_muerto_p = 21.8;
 kp = 0.2081;
 gamma = tiempo_muerto_p - tiempo_muerto;
 
+% Controlador Cohen-coon
+KcPID_CC   = 26.8300;
+TaoiPID_CC = 55.8333;
+TaodPID_CC = 8.6957;
+KiPID_CC   = KcPID_CC/TaoiPID_CC;
+KdPID_CC   = KcPID_CC*TaodPID_CC;
+
+
 sim('control_feedforward');
 sim('control_solo_feedback');
-
+figure(3)
 subplot(2,1,1), plot(...
     C_E_real.time, C_E_real.signals.values,...
     C_E_sin_FF.time, C_E_sin_FF.signals.values...
