@@ -77,35 +77,11 @@ grid on;
 %% 4A
 
 %Controlador PI CON predictor de Smith
-Kc_Smith = 240;
+Kc_Smith = 125;
 Tau_Smith = 100;
 
 %Controlador PI SIN predictor de Smith
-Kc_Normal = 80;
-Tau_Normal = 100;
-
-sim('Predictor_de_smith_con_planta.slx')
-sim('solo_feedback.slx')
-plot(...
-    CE_SMITH.time, CE_SMITH.signals.values,'r',...
-    CE_NORMAL.time, CE_NORMAL.signals.values,'b',...
-    'LineWidth', 1.5,...
-    'LineSmoothing','on'...
-);
-title('Evolucion de Ce para un escalón del 2% en el Set Point')
-ylabel('Ce [mol/m3]')
-xlabel('Tiempo [s]')
-%xlim([0 350])
-legend('CON predictor', 'SIN Predictor')
-grid on;
-%% 4B
-
-%Controlador PI CON predictor de Smith
-Kc_Smith = 240;
-Tau_Smith = 100;
-
-%Controlador PI SIN predictor de Smith
-Kc_Normal = 20;
+Kc_Normal = 1;
 Tau_Normal = 100;
 
 sim('Predictor_de_smith_con_planta.slx')
@@ -120,8 +96,9 @@ title('Evolucion de Ce para un escalón del 2% en el Set Point')
 ylabel('Ce [mol/m3]')
 xlabel('Tiempo [s]')
 xlim([0 350])
-legend('CON predictor - Kc = 240', 'SIN Predictor - Kc = 20')
+legend('CON predictor', 'SIN Predictor')
 grid on;
+
 %% 4.
 %{
 Analizar el comportamiento de CE ante un aumento de la ganancia del 
