@@ -46,7 +46,7 @@ Parametros de funcion de transferencia: tpo muerto(tita), tau y ganancia (K)
 Parametros =
 
    23.0783  141.9059    0.0037
-%}
+%}.
 
 %Diseño del controlador PID
 
@@ -227,13 +227,14 @@ plot(Fh_v_CC.time,Fh_v_CC.signals.values,...
     Fh_v_IMC_m.time,Fh_v_IMC_m.signals.values);
 hold on;
 figure(3);
-plot(Fh_v_CC_pert.time,up_limit,'m:',...
-    Fh_v_CC_pert.time,low_limit,'m:');
-grid on;
+%plot(Fh_v_CC_pert.time,up_limit,'m:',...
+%    Fh_v_CC_pert.time,low_limit,'m:');
 grid on;
 title('Controles vs escalón SP +2%');
 legend('CC','ZN','IMC','IMCm');
 xlim([0 40]);
+xlabel('Tiempo [s]');
+ylabel('Fh');
 
 figure(4);
 amp = Fh0*0.01;
@@ -247,8 +248,8 @@ plot(Fh_v_CC_pert.time,Fh_v_CC_pert.signals.values,'r',...
     Fh_v_IMC_m_pert.time,Fh_v_IMC_m_pert.signals.values,'c');
 hold on;
 figure(4);
-plot(Fh_v_CC_pert.time,up_limit,'m:',...
-    Fh_v_CC_pert.time,low_limit,'m:');
+%plot(Fh_v_CC_pert.time,up_limit,'m:',...
+  %  Fh_v_CC_pert.time,low_limit,'m:');
 grid on;
 title('Controles vs escalón Dfh +1% de Fh0');
 legend('CC','ZN','IMC','IMCm');
@@ -331,7 +332,7 @@ sim('Modelado_cascada_val_planta');
 figure(5);
 plot(CE_mod_cascada_real.time,CE_mod_cascada_real.signals.values,...
     CE_mod_cascada_modelada.time,CE_mod_cascada_modelada.signals.values);
-title('Válvula real vs modelada frente a escalón del 4% en el SP de Fh');
+title('Cascada real vs modelada frente a escalón del 4% en el SP de Fh');
 legend('Real','Modelada');
 xlabel('Tiempo [s]');
 ylabel('CE');
@@ -374,8 +375,8 @@ TaodPID = 8.6957
 Kc_PID = 26.7914;
 TaoiPID = 55.8333;
 TaodPID = 8.6957;
-Ki_PID   = KcPID/TaoiPID;
-Kd_PID   = KcPID * TaodPID;
+Ki_PID   = Kc_PID/TaoiPID;
+Kd_PID   = Kc_PID * TaodPID;
 
 load('Resultados_prueba_control_cascada');
 
