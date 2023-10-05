@@ -1,4 +1,4 @@
-%% Modelo lineal de la planta:
+%% 2.1 Modelo lineal de la planta:
 s = tf('s');
 Gpa = (-0.00024744 *(s-0.1886))/((s+0.4348)*(s+0.05047)*(s+0.01022));
 Gpa_lc = Gpa/(1+Gpa);
@@ -51,6 +51,7 @@ title('Bode del PD + planta');
 % Debemos poner un polo en cero y un cero a una frecuencia mucho menor a Wn
 
 kpi = 0.00612415;   % Ganancia del PI
+%kpi = 1;   % Ganancia del PI
 wpi = 0.006155;     % Frecuencia del cero del PI (10 veces menos que Wn)
 Gpi = kpi * (1+(s/wpi))/s;
 
@@ -102,16 +103,18 @@ cota_inferior = valor_final - (valor_final - valor_inicial) * 0.02;
 cs = ones(1001) * cota_superior;
 ci = ones(1001) * cota_inferior;
 
-% Líneas para el tr2%
-figure(8);
-plot(t,cs,':r',t,ci,':r');
-hold on;
-
 % Respuesta al escalón
 figure(8);
 plot(t,C_E,t,SP_CE,'LineSmoothing','on','LineWidth',1.5);
+legend('Variable controlada','Set point');
 grid on;
 title('Respuesta de la planta controlada a un escalón de +2% en el SP');
 xlabel('Tiempo [s]');
 ylabel('C_E');
+hold on;
+
+% Líneas para el tr2%
+figure(8);
+plot(t,cs,':r',t,ci,':r');
 xlim([0 700]);
+
