@@ -1,16 +1,17 @@
 Model {
-  Name			  "CSTR_TP2_2021"
-  Version		  8.5
+  Name			  "CSTR_TP2_2023"
+  Version		  8.3
   MdlSubVersion		  0
   SavedCharacterEncoding  "windows-1252"
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.274"
+    ComputedModelVersion    "1.276"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
+  SaveDefaultBlockParams  on
   ScopeRefreshTime	  0.035000
   OverrideScopeRefreshTime off
   DisableAllScopes	  off
@@ -29,7 +30,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [-9.0, 0.0, 1938.0, 1050.0]
+      Location		      [1592.0, 59.0, 1382.0, 736.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -53,9 +54,9 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[1886.0, 850.0]
-	ZoomFactor		[1.0]
-	Offset			[-1.5, 0.0]
+	Extents			[1332.0, 561.0]
+	ZoomFactor		[1.75]
+	Offset			[18.809523809523881, 32.9333333333333]
       }
     }
   }
@@ -63,11 +64,11 @@ Model {
   Creator		  "Marcelo"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "GISP"
+  LastModifiedBy	  "lraff"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Sep 23 12:19:42 2021"
-  RTWModifiedTimeStamp	  554300368
-  ModelVersionFormat	  "1.%<AutoIncrement:274>"
+  LastModifiedDate	  "Thu Oct 05 16:07:51 2023"
+  RTWModifiedTimeStamp	  618422744
+  ModelVersionFormat	  "1.%<AutoIncrement:276>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -85,7 +86,6 @@ Model {
   SortedOrder		  off
   ExecutionContextIcon	  off
   ShowLinearizationAnnotations on
-  ShowMarkup		  on
   BlockNameDataTip	  off
   BlockParametersDataTip  off
   BlockDescriptionStringDataTip	off
@@ -110,11 +110,11 @@ Model {
     $PropName		    "DataLoggingOverride"
     $ObjectID		    6
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
-    model_		    "CSTR_TP2_2021"
+    model_		    "CSTR_TP2_2023"
     Array {
       Type		      "Cell"
       Dimension		      1
-      Cell		      "CSTR_TP2_2021"
+      Cell		      "CSTR_TP2_2023"
       PropName		      "logAsSpecifiedByModels_"
     }
     Array {
@@ -142,9 +142,6 @@ Model {
   CovSFcnEnable		  on
   CovBoundaryAbsTol	  0.000010
   CovBoundaryRelTol	  0.010000
-  CovUseTimeInterval	  off
-  CovStartTime		  0
-  CovStopTime		  0
   ExtModeBatchMode	  off
   ExtModeEnableFloating	  on
   ExtModeTrigType	  "manual"
@@ -166,6 +163,7 @@ Model {
   ExtModeSkipDownloadWhenConnect off
   ExtModeLogAll		  on
   ExtModeAutoUpdateStatusClock on
+  BufferReuse		  on
   ShowModelReferenceBlockVersion off
   ShowModelReferenceBlockIO off
   Array {
@@ -173,13 +171,13 @@ Model {
     Dimension		    1
     Simulink.ConfigSet {
       $ObjectID		      7
-      Version		      "1.15.0"
+      Version		      "1.14.2"
       Array {
 	Type			"Handle"
 	Dimension		8
 	Simulink.SolverCC {
 	  $ObjectID		  8
-	  Version		  "1.15.0"
+	  Version		  "1.14.2"
 	  StartTime		  "0.0"
 	  StopTime		  "1000"
 	  AbsTol		  "auto"
@@ -214,7 +212,7 @@ Model {
 	}
 	Simulink.DataIOCC {
 	  $ObjectID		  9
-	  Version		  "1.15.0"
+	  Version		  "1.14.2"
 	  Decimation		  "1"
 	  ExternalInput		  "[t, u]"
 	  FinalStateName	  "xFinal"
@@ -247,7 +245,7 @@ Model {
 	}
 	Simulink.OptimizationCC {
 	  $ObjectID		  10
-	  Version		  "1.15.0"
+	  Version		  "1.14.2"
 	  Array {
 	    Type		    "Cell"
 	    Dimension		    6
@@ -263,7 +261,7 @@ Model {
 	  BooleanDataType	  off
 	  ConditionallyExecuteInputs on
 	  InlineParams		  off
-	  UseDivisionForNetSlopeComputation "off"
+	  UseIntDivNetSlope	  off
 	  UseFloatMulNetSlope	  off
 	  DefaultUnderspecifiedDataType	"double"
 	  UseSpecifiedMinMax	  off
@@ -280,13 +278,15 @@ Model {
 	  EnableMemcpy		  on
 	  MemcpyThreshold	  64
 	  PassReuseOutputArgsAs	  "Structure reference"
-	  PassReuseOutputArgsThreshold 12
 	  ExpressionDepthLimit	  2147483647
+	  FoldNonRolledExpr	  on
 	  LocalBlockOutputs	  on
 	  RollThreshold		  5
+	  SystemCodeInlineAuto	  off
 	  StateBitsets		  off
 	  DataBitsets		  off
 	  ActiveStateOutputEnumStorageType "Native Integer"
+	  UseTempVars		  off
 	  ZeroExternalMemoryAtStartup on
 	  ZeroInternalMemoryAtStartup on
 	  InitFltsAndDblsToZero	  off
@@ -297,12 +297,13 @@ Model {
 	  LifeSpan		  "inf"
 	  MaxStackSize		  "Inherit from target"
 	  BufferReusableBoundary  on
-	  SimCompilerOptimization "off"
+	  SimCompilerOptimization "Off"
 	  AccelVerboseBuild	  off
+	  ParallelExecutionInRapidAccelerator on
 	}
 	Simulink.DebuggingCC {
 	  $ObjectID		  11
-	  Version		  "1.15.0"
+	  Version		  "1.14.2"
 	  RTPrefix		  "error"
 	  ConsistencyChecking	  "none"
 	  ArrayBoundsChecking	  "none"
@@ -362,10 +363,12 @@ Model {
 	  BusObjectLabelMismatch  "warning"
 	  RootOutportRequireBusObject "warning"
 	  AssertControl		  "UseLocalSettings"
+	  EnableOverflowDetection off
 	  ModelReferenceIOMsg	  "none"
 	  ModelReferenceMultiInstanceNormalModeStructChecksumCheck "error"
 	  ModelReferenceVersionMismatchMessage "none"
 	  ModelReferenceIOMismatchMessage "none"
+	  ModelReferenceCSMismatchMessage "none"
 	  UnknownTsInhSupMsg	  "warning"
 	  ModelReferenceDataLoggingMessage "warning"
 	  ModelReferenceSymbolNameMessage "warning"
@@ -377,6 +380,7 @@ Model {
 	  StrictBusMsg		  "ErrorLevel1"
 	  BusNameAdapt		  "WarnAndRepair"
 	  NonBusSignalsTreatedAsBus "none"
+	  LoggingUnavailableSignals "error"
 	  BlockIODiagnostic	  "none"
 	  SFUnusedDataAndEventsDiag "warning"
 	  SFUnexpectedBacktrackingDiag "warning"
@@ -386,12 +390,10 @@ Model {
 	  SFUnconditionalTransitionShadowingDiag "warning"
 	  SFUndirectedBroadcastEventsDiag "warning"
 	  SFTransitionActionBeforeConditionDiag	"warning"
-	  SFOutputUsedAsStateInMooreChartDiag "error"
-	  IntegerSaturationMsg	  "warning"
 	}
 	Simulink.HardwareCC {
 	  $ObjectID		  12
-	  Version		  "1.15.0"
+	  Version		  "1.14.2"
 	  ProdBitPerChar	  8
 	  ProdBitPerShort	  16
 	  ProdBitPerInt		  32
@@ -423,6 +425,7 @@ Model {
 	  TargetIntDivRoundTo	  "Undefined"
 	  TargetEndianess	  "Unspecified"
 	  TargetWordSize	  32
+	  TargetTypeEmulationWarnSuppressLevel 0
 	  TargetPreprocMaxBitsSint 32
 	  TargetPreprocMaxBitsUint 32
 	  TargetHWDeviceType	  "Specified"
@@ -431,7 +434,7 @@ Model {
 	}
 	Simulink.ModelReferenceCC {
 	  $ObjectID		  13
-	  Version		  "1.15.0"
+	  Version		  "1.14.2"
 	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
 	  CheckModelReferenceTargetMessage "error"
 	  EnableParallelModelReferenceBuilds off
@@ -446,10 +449,13 @@ Model {
 	}
 	Simulink.SFSimCC {
 	  $ObjectID		  14
-	  Version		  "1.15.0"
+	  Version		  "1.14.2"
+	  SFSimEnableDebug	  on
 	  SFSimOverflowDetection  on
 	  SFSimEcho		  on
+	  SimBlas		  on
 	  SimCtrlC		  on
+	  SimExtrinsic		  on
 	  SimIntegrity		  on
 	  SimUseLocalCustomCode	  off
 	  SimParseCustomCode	  on
@@ -459,7 +465,7 @@ Model {
 	Simulink.RTWCC {
 	  $BackupClass		  "Simulink.RTWCC"
 	  $ObjectID		  15
-	  Version		  "1.15.0"
+	  Version		  "1.14.2"
 	  Array {
 	    Type		    "Cell"
 	    Dimension		    6
@@ -489,6 +495,11 @@ Model {
 	  TLCDebug		  off
 	  TLCCoverage		  off
 	  TLCAssert		  off
+	  ProcessScriptMode	  "Default"
+	  ConfigurationMode	  "Optimized"
+	  ProcessScript		  ""
+	  ConfigurationScript	  ""
+	  ConfigAtBuild		  off
 	  RTWUseLocalCustomCode	  off
 	  RTWUseSimCustomCode	  off
 	  CustomSourceCode	  ""
@@ -511,25 +522,28 @@ Model {
 	  SILDebugging		  off
 	  TargetLang		  "C"
 	  IncludeBusHierarchyInRTWFileBlockHierarchyMap	off
+	  IncludeERTFirstTime	  off
 	  GenerateTraceInfo	  off
 	  GenerateTraceReport	  off
 	  GenerateTraceReportSl	  off
 	  GenerateTraceReportSf	  off
 	  GenerateTraceReportEml  off
+	  GenerateCodeInfo	  off
 	  GenerateWebview	  off
 	  GenerateCodeMetricsReport off
 	  GenerateCodeReplacementReport	off
-	  GenerateMissedCodeReplacementReport off
-	  RTWCompilerOptimization "off"
+	  RTWCompilerOptimization "Off"
 	  RTWCustomCompilerOptimizations ""
 	  CheckMdlBeforeBuild	  "Off"
+	  CustomRebuildMode	  "OnUpdate"
+	  DataInitializer	  ""
 	  SharedConstantsCachingThreshold 1024
 	  Array {
 	    Type		    "Handle"
 	    Dimension		    2
 	    Simulink.CodeAppCC {
 	      $ObjectID		      16
-	      Version		      "1.15.0"
+	      Version		      "1.14.2"
 	      Array {
 		Type			"Cell"
 		Dimension		17
@@ -594,7 +608,7 @@ Model {
 	    Simulink.GRTTargetCC {
 	      $BackupClass	      "Simulink.TargetCC"
 	      $ObjectID		      17
-	      Version		      "1.15.0"
+	      Version		      "1.14.2"
 	      Array {
 		Type			"Cell"
 		Dimension		14
@@ -625,7 +639,6 @@ Model {
 	      ERTMultiwordLength      256
 	      MultiwordLength	      2048
 	      GenerateFullHeader      on
-	      InferredTypesCompatibility off
 	      GenerateSampleERTMain   off
 	      GenerateTestInterfaces  off
 	      ModelReferenceCompliant on
@@ -651,15 +664,14 @@ Model {
 	      SupportContinuousTime   on
 	      SupportNonInlinedSFcns  on
 	      SupportVariableSizeSignals off
+	      EnableShiftOperators    on
 	      ParenthesesLevel	      "Nominal"
-	      CastingMode	      "Nominal"
 	      MATLABClassNameForMDSCustomization "Simulink.SoftwareTarget.GRTCustomization"
 	      ModelStepFunctionPrototypeControlCompliant off
 	      CPPClassGenCompliant    on
 	      AutosarCompliant	      off
 	      GRTInterface	      on
 	      GenerateAllocFcn	      off
-	      GenerateSharedConstants on
 	      UseMalloc		      off
 	      ExtMode		      off
 	      ExtModeStaticAlloc      off
@@ -828,9 +840,6 @@ Model {
       LimitOutput	      off
       UpperSaturationLimit    "inf"
       LowerSaturationLimit    "-inf"
-      WrapState		      off
-      WrappedStateUpperValue  "pi"
-      WrappedStateLowerValue  "-pi"
       ShowSaturationPort      off
       ShowStatePort	      off
       AbsoluteTolerance	      "auto"
@@ -884,7 +893,6 @@ Model {
       TickLabels	      "OneTimeTick"
       ZoomMode		      "on"
       Grid		      "on"
-      ShowLegends	      off
       TimeRange		      "auto"
       YMin		      "-5"
       YMax		      "5"
@@ -896,7 +904,6 @@ Model {
       Decimation	      "1"
       SampleInput	      off
       SampleTime	      "-1"
-      ScrollMode	      off
     }
     Block {
       BlockType		      Step
@@ -937,7 +944,6 @@ Model {
       Variant		      off
       GeneratePreprocessorConditionals off
       ContentPreviewEnabled   off
-      IsWebBlock	      off
     }
     Block {
       BlockType		      Sum
@@ -980,8 +986,8 @@ Model {
     }
   }
   System {
-    Name		    "CSTR_TP2_2021"
-    Location		    [-9, 0, 1929, 1050]
+    Name		    "CSTR_TP2_2023"
+    Location		    [1592, 59, 2974, 795]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -993,14 +999,14 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "100"
+    ZoomFactor		    "175"
     ReportName		    "simulink-default.rpt"
     SIDHighWatermark	    "256"
     Block {
       BlockType		      Step
       Name		      "C_i"
       SID		      "2"
-      Position		      [260, 130, 290, 160]
+      Position		      [390, 175, 420, 205]
       ZOrder		      -1
       Time		      "50"
       Before		      "1.1367"
@@ -1011,14 +1017,14 @@ Model {
       BlockType		      Clock
       Name		      "Clock"
       SID		      "3"
-      Position		      [825, 20, 845, 40]
+      Position		      [955, 65, 975, 85]
       ZOrder		      -2
     }
     Block {
       BlockType		      Step
       Name		      "F_h"
       SID		      "4"
-      Position		      [195, 45, 225, 75]
+      Position		      [335, 90, 365, 120]
       ZOrder		      -3
       Time		      "50"
       Before		      "0.8946"
@@ -1029,7 +1035,7 @@ Model {
       BlockType		      Step
       Name		      "F_i"
       SID		      "5"
-      Position		      [260, 290, 290, 320]
+      Position		      [390, 335, 420, 365]
       ZOrder		      -4
       Time		      "50"
       Before		      "1"
@@ -1040,7 +1046,7 @@ Model {
       Name		      "PLANTA"
       SID		      "6"
       Ports		      [5, 3]
-      Position		      [500, 93, 630, 257]
+      Position		      [630, 138, 760, 302]
       ZOrder		      -5
       RequestExecContextInheritance off
       System {
@@ -3515,6 +3521,7 @@ Model {
 		    ListType		    AxesTitles
 		    axes1		    "%<SignalLabel>"
 		  }
+		  ShowLegends		  off
 		  SaveName		  "ScopeData5"
 		  DataFormat		  "StructureWithTime"
 		  SampleTime		  "0"
@@ -3534,6 +3541,7 @@ Model {
 		    ListType		    AxesTitles
 		    axes1		    "%<SignalLabel>"
 		  }
+		  ShowLegends		  off
 		  SaveName		  "ScopeData6"
 		  DataFormat		  "StructureWithTime"
 		  SampleTime		  "0"
@@ -5014,7 +5022,7 @@ Model {
       BlockType		      Step
       Name		      "SP_CE"
       SID		      "251"
-      Position		      [15, 100, 45, 130]
+      Position		      [20, 145, 50, 175]
       ZOrder		      -6
       BackgroundColor	      "lightBlue"
       Time		      "100"
@@ -5027,7 +5035,7 @@ Model {
       Name		      "Sum"
       SID		      "250"
       Ports		      [2, 1]
-      Position		      [100, 105, 120, 125]
+      Position		      [100, 150, 120, 170]
       ZOrder		      -7
       ShowName		      off
       IconShape		      "round"
@@ -5041,7 +5049,7 @@ Model {
       Name		      "Sum1"
       SID		      "253"
       Ports		      [2, 1]
-      Position		      [240, 105, 260, 125]
+      Position		      [370, 150, 390, 170]
       ZOrder		      -8
       ShowName		      off
       IconShape		      "round"
@@ -5054,7 +5062,7 @@ Model {
       BlockType		      Step
       Name		      "T_h"
       SID		      "222"
-      Position		      [260, 235, 290, 265]
+      Position		      [390, 280, 420, 310]
       ZOrder		      -9
       Time		      "50"
       Before		      "473"
@@ -5065,7 +5073,7 @@ Model {
       BlockType		      Step
       Name		      "T_i"
       SID		      "223"
-      Position		      [260, 180, 290, 210]
+      Position		      [390, 225, 420, 255]
       ZOrder		      -10
       BackgroundColor	      "lightBlue"
       Time		      "100"
@@ -5078,7 +5086,7 @@ Model {
       Name		      "To Workspace1"
       SID		      "243"
       Ports		      [1]
-      Position		      [370, 45, 430, 75]
+      Position		      [500, 90, 560, 120]
       ZOrder		      -11
       VariableName	      "F_h"
       MaxDataPoints	      "inf"
@@ -5089,7 +5097,7 @@ Model {
       Name		      "To Workspace10"
       SID		      "254"
       Ports		      [1]
-      Position		      [100, 45, 160, 75]
+      Position		      [140, 20, 200, 50]
       ZOrder		      -12
       VariableName	      "SP_CE"
       MaxDataPoints	      "inf"
@@ -5100,7 +5108,7 @@ Model {
       Name		      "To Workspace2"
       SID		      "244"
       Ports		      [1]
-      Position		      [370, 105, 430, 135]
+      Position		      [500, 150, 560, 180]
       ZOrder		      -13
       VariableName	      "C_i"
       MaxDataPoints	      "inf"
@@ -5111,7 +5119,7 @@ Model {
       Name		      "To Workspace3"
       SID		      "227"
       Ports		      [1]
-      Position		      [680, 105, 740, 135]
+      Position		      [810, 150, 870, 180]
       ZOrder		      -14
       VariableName	      "T"
       MaxDataPoints	      "inf"
@@ -5122,7 +5130,7 @@ Model {
       Name		      "To Workspace4"
       SID		      "228"
       Ports		      [1]
-      Position		      [850, 160, 910, 190]
+      Position		      [980, 205, 1040, 235]
       ZOrder		      -15
       VariableName	      "C_E"
       MaxDataPoints	      "inf"
@@ -5133,7 +5141,7 @@ Model {
       Name		      "To Workspace5"
       SID		      "229"
       Ports		      [1]
-      Position		      [680, 215, 740, 245]
+      Position		      [810, 260, 870, 290]
       ZOrder		      -16
       VariableName	      "T_j"
       MaxDataPoints	      "inf"
@@ -5144,7 +5152,7 @@ Model {
       Name		      "To Workspace6"
       SID		      "230"
       Ports		      [1]
-      Position		      [895, 15, 955, 45]
+      Position		      [1025, 60, 1085, 90]
       ZOrder		      -17
       VariableName	      "t"
       MaxDataPoints	      "inf"
@@ -5155,7 +5163,7 @@ Model {
       Name		      "To Workspace7"
       SID		      "245"
       Ports		      [1]
-      Position		      [370, 160, 430, 190]
+      Position		      [500, 205, 560, 235]
       ZOrder		      -18
       VariableName	      "T_i"
       MaxDataPoints	      "inf"
@@ -5166,7 +5174,7 @@ Model {
       Name		      "To Workspace8"
       SID		      "246"
       Ports		      [1]
-      Position		      [370, 210, 430, 240]
+      Position		      [500, 255, 560, 285]
       ZOrder		      -19
       VariableName	      "T_h"
       MaxDataPoints	      "inf"
@@ -5177,7 +5185,7 @@ Model {
       Name		      "To Workspace9"
       SID		      "247"
       Ports		      [1]
-      Position		      [370, 265, 430, 295]
+      Position		      [500, 310, 560, 340]
       ZOrder		      -20
       VariableName	      "F_i"
       MaxDataPoints	      "inf"
@@ -5188,15 +5196,15 @@ Model {
       Name		      "Zero-Pole\n(with initial outputs)"
       SID		      "256"
       Ports		      [1, 1]
-      Position		      [150, 97, 210, 133]
+      Position		      [160, 129, 315, 191]
       ZOrder		      -21
-      LibraryVersion	      "1.43"
+      LibraryVersion	      "1.44"
       SourceBlock	      "simulink_extras/Additional\nLinear/Zero-Pole\n(with initial outputs)"
       SourceType	      "Zero-Pole with Initial Outputs"
       ContentPreviewEnabled   off
-      Z			      "[-0.1; -0.2]"
-      P			      "[-0.3; -0.4]"
-      K			      "[50.00*1.00]"
+      Z			      "[-0.0355; -0.011]"
+      P			      "[0; -0.107]"
+      K			      "[49.091*0.7]"
       Y0		      "0"
       U0		      "0"
     }
@@ -5262,7 +5270,7 @@ Model {
       }
       Branch {
 	ZOrder			11
-	Points			[0, 190; -690, 0]
+	Points			[0, 190; -820, 0]
 	DstBlock		"Sum"
 	DstPort			2
       }
@@ -5313,15 +5321,15 @@ Model {
       ZOrder		      19
       SrcBlock		      "SP_CE"
       SrcPort		      1
-      Points		      [20, 0]
+      Points		      [15, 0]
       Branch {
-	ZOrder			20
+	ZOrder			30
 	DstBlock		"Sum"
 	DstPort			1
       }
       Branch {
-	ZOrder			21
-	Points			[0, -55]
+	ZOrder			29
+	Points			[0, -125]
 	DstBlock		"To Workspace10"
 	DstPort			1
       }
@@ -5330,7 +5338,7 @@ Model {
       ZOrder		      22
       SrcBlock		      "F_h"
       SrcPort		      1
-      Points		      [20, 0]
+      Points		      [10, 0]
       DstBlock		      "Sum1"
       DstPort		      1
     }
