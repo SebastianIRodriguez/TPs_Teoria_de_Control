@@ -50,12 +50,12 @@ title('Bode del PD + planta');
 % *** Controlador PI
 % Debemos poner un polo en cero y un cero a una frecuencia mucho menor a Wn
 
-kpi = 0.00612415;   % Ganancia del PI
+kpi = 0.006155;   % Ganancia del PI
 %kpi = 1;   % Ganancia del PI
 wpi = 0.006155;     % Frecuencia del cero del PI (10 veces menos que Wn)
 Gpi = kpi * (1+(s/wpi))/s;
 
-% *** Controlador PID
+% *** Controlador PID 
 % Los márgenes iniciales son: Pm = 46.9373, Gm = 2.2099
 G = Gpi*Gpa*Gpd;
 G_lc = G/(1+G);
@@ -82,15 +82,31 @@ title('Respuesta al escalón del PID + planta');
 
 %C = 0.18 * (1+28.16*s)*(1+90.909*s)/(s*(1+9.346*s)); % Controlador PID
 C = 49.091 * (s+0.0355)*(s+0.011)/(s*(s+0.107)); % Controlador PID
-G = Gpa * C;
-G_lc = G/(1+G);
-[Gm,Pm,Wgm,Wpm] = margin(G); 
+Gc = Gpa * C;
+Gc_lc = Gc/(1+Gc);
+[Gm,Pm,Wgm,Wpm] = margin(Gc); 
 
 figure(7);
-step(G_lc);
+[ycc,tcc] = step(Gc_lc,200);
+plot(tcc,ycc,'LineSmoothing','on','LineWidth',1.5);
 grid on;
-title('Respuesta al escalón del PID corregido + planta');
+title('Respuesta al escalón de la planta + PID corregido');
+xlabel('Tiempo [s]');
+ylabel('C_E');
+grid on;
 
+figure(11);
+bode(Gpa, G, Gc);
+grid on;
+title('Bode de la planta sin control y controlada');
+legend('Sin control','Controlada sin ajuste','Controlada ajustada');
+grid on;
+
+figure(12);
+bode(G, Gc);
+grid on;
+title('Bode de la planta sin ajuste y ajustada');
+legend('Sin ajuste','Ajustada');
 %% 2.2.3 Verificación del desempeño
 
 load('data.mat');
