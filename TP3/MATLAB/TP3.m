@@ -69,3 +69,31 @@ sim('CSTR_TP3_2023');
 plot(t,C_E,t,C_E_continuo,'LineSmoothing','on');
 legend('Controlador discreto', 'Controlador continuo');
 grid on;
+
+
+%% 2.2.2
+T = 4;
+% Tranferencia continua sin tiempo muerto
+Gs= 0.000116327/((s+0.05505)*(s+0.01014));
+
+% Transferencia discreta sin tiempo muerto
+Gz = zpk(c2d(Gs, T, 'zoh')); 
+
+% Transferencia en W
+Gw_raw = transfw(Gz);
+raw_gain = evalfr(Gw_raw,0);
+
+Gw= -2.0121e-05*(s-0.5)/((s+0.05483)*(s+0.01014));
+new_gain = evalfr(Gw,0);
+kw = raw_gain/new_gain;
+Gw = zpk(Gw * kw);
+
+%% Controlador PD
+a = 3;
+wn = 0.06155; 
+tau=9.388;
+Gpd =(1+a*tau*s)/(1+tau*s);
+G_1 = Gpd*Gw;
+[mag,phase] = bode(G_1,wn);
+kpd = 1/mag;
+G_1 = kpd * G_1;
