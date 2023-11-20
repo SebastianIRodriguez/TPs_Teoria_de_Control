@@ -194,7 +194,7 @@ Ts = 4;
 
 %k_ajuste = 0.496;
 % 0.5 casi casi
-k_ajuste = 0.496;
+k_ajuste = 1;
 
 load('data.mat');
 sim('CSTR_TP3_2023_Ragazzini'); % Tiene el escalón en SP

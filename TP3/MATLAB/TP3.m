@@ -1,7 +1,8 @@
 %% Ej 2.1
 s = tf('s');
-C_continua = 34.364 * (s+0.0355)*(s+0.011)/(s*(s+0.107));
+C_continua = 34.364 *(s+0.0355)*(s+0.011)/(s*(s+0.107));
 bode(C_continua)
+grid on;
 
 T_chico = 2; 
 g_pz_tc = c2d(C_continua, T_chico, 'matched');   % utilizando mapeo de polos y ceros
@@ -92,6 +93,15 @@ kw = raw_gain/new_gain;
 Gw = zpk(Gw * kw);
 
 %% Controlador PD
+% El margen de fase original es infinito, la ganancia nunca supera la
+% unidad
+
+figure(6);
+bode(Gw);
+grid on;
+title('Bode de planta');
+[Gm_or,Pm_or,Wgm_or,Wpm_or] = margin(G_1);
+
 a = 3;
 wn = 0.06155; 
 tau=9.388;
@@ -100,3 +110,141 @@ G_1 = Gpd*Gw;
 [mag,phase] = bode(G_1,wn);
 kpd = 1/mag;
 G_1 = kpd * G_1;
+Gpd = Gpd * kpd;
+
+figure(7);
+bode(G_1);
+grid on;
+title('Bode del PD + planta');
+[Gmd,Pmd,Wgmd,Wpmd] = margin(G_1);
+
+%% Controlador PI
+% Debemos poner un polo en cero y un cero a una frecuencia mucho menor a Wn
+
+wpi = 0.006155;     % Frecuencia del cero del PI (10 veces menos que Wn)
+Gpi = wpi * (1+(s/wpi))/s;
+
+% *** Controlador PID 
+G_pid = Gpi*Gpd;
+G_lc = (G_pid*Gw)/(1+(G_pid*Gw));
+
+figure(8);
+[mag,phase]= bode(G_pid*Gw,0.06155);
+bode(G_pid*Gw);
+grid on;
+title('Bode del PID + planta');
+[Gm,Pm,Wgm,Wpm] = margin(Gw*G_pid); 
+
+figure(9);
+step(G_lc);
+grid on;
+title('Respuesta al escalón del PID + planta');
+
+% El sistema queda con un PM de 68.1332° y Gm de 7.3864
+
+%% Ajustes finales
+% Modificando la ganancia y el cero del PI obtengo la respuesta deseada
+% SV = 5.54%
+% tr = 102 segundos
+% Gm = 6.025 veces (o 15.6 dB)
+% Pm = 59.3°
+% error estacionario = 0 (integrador)
+
+%sisotool(Gw);
+% Ganancia original: 0,156506
+
+C = 0.25 * (1+28.161*s)*(1+122.624157*s)/(s*(1+9.38967*s)); % Controlador PID
+%C = 49.091 * (s+0.0355)*(s+0.011)/(s*(s+0.107)); % Controlador PID
+Gc = Gw * C;
+Gc_lc = Gc/(1+Gc);
+[Gm,Pm,Wgm,Wpm] = margin(Gc); 
+
+figure(10);
+[ycc,tcc] = step(Gc_lc,200);
+plot(tcc,ycc,'LineSmoothing','on','LineWidth',1.5);
+grid on;
+title('Respuesta al escalón de la planta + PID corregido');
+xlabel('Tiempo [s]');
+ylabel('C_E');
+grid on;
+
+figure(11);
+bode(Gw, G_pid*Gw, Gc);
+grid on;
+title('Bode de la planta sin control y controlada');
+legend('Sin control','Controlada sin ajuste','Controlada ajustada');
+grid on;
+
+figure(12);
+bode(Gw, Gc);
+grid on;
+title('Bode de la planta sin ajuste y ajustada');
+legend('Sin ajuste','Ajustada');
+
+%% Antitrasnformada y verificación de desempeño
+Ts = 4;
+Cz = antitransfw(zpk(C),Ts);
+
+load('data.mat');
+sim('CSTR_TP3_2023_w'); % Tiene el escalón en SP
+
+valor_inicial = 0.543;
+valor_final = 0.543*1.02;
+cota_superior = valor_final + (valor_final - valor_inicial) * 0.02;
+cota_inferior = valor_final - (valor_final - valor_inicial) * 0.02;
+cs = ones(1001) * cota_superior;
+ci = ones(1001) * cota_inferior;
+
+sv_superior = valor_final + (valor_final - valor_inicial) * 0.15;
+sv_inferior = valor_final - (valor_final - valor_inicial) * 0.15;
+svs = ones(1001) * sv_superior;
+svi = ones(1001) * sv_inferior;
+
+% Respuesta al escalón
+figure(13);
+plot(t,C_E,t,SP_CE,'LineSmoothing','on','LineWidth',1.5);
+grid on;
+title('Respuesta de la planta controlada a un escalón de +2% en el SP');
+xlabel('Tiempo [s]');
+ylabel('C_E');
+hold on;
+
+% Líneas para el tr2%
+figure(13);
+plot(t,cs,':r',t,ci,':r','LineWidth',1.12);
+xlim([50 500]);
+
+% Líneas para el sv%
+figure(13);
+plot(t,svs,'--y',t,svi,'--y','LineWidth',1.12);
+xlim([50 500]);
+
+legend('Variable controlada','Set point','Limites de +/- 2%','Limites de +/- 15%');
+
+%% Escalón en Ti
+sim('CSTR_TP3_2023_w_2');
+
+valor_inicial = 0.543;
+valor_final = 0.543;
+
+sv_superior = valor_final + valor_final * 0.01;
+sv_inferior = valor_final - valor_final * 0.01;
+svs = ones(1001) * sv_superior;
+svi = ones(1001) * sv_inferior;
+
+% Respuesta al escalón
+figure(14);
+plot(t,C_E,t,SP_CE,'LineSmoothing','on','LineWidth',1.5);
+grid on;
+title('Respuesta de la planta controlada a un escalón de +1% en el Ti');
+xlabel('Tiempo [s]');
+ylabel('C_E');
+hold on;
+
+% Líneas para el sv%
+figure(14);
+plot(t,svs,':r','LineWidth',1.12);
+xlim([50 800]);
+
+legend('Variable controlada','Set point','Limite de +1%');
+
