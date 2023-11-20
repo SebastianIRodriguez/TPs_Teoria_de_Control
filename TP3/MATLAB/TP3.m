@@ -2,6 +2,7 @@
 s = tf('s');
 C_continua = 34.364 * (s+0.0355)*(s+0.011)/(s*(s+0.107));
 bode(C_continua)
+grid on;
 
 T_chico = 2; 
 g_pz_tc = c2d(C_continua, T_chico, 'matched');   % utilizando mapeo de polos y ceros
