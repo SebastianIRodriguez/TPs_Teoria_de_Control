@@ -20,26 +20,29 @@ g_atras_tg = recatras(C_continua, T_grande);
 %% 2.1.2
 figure(1);
 pzmap(g_pz_tc, g_bloq_tc, g_trap_tc, g_adel_tc, g_atras_tc);
+title('Ts = 2 seg');
 legend('Mapeo','Bloqueador','Trapezoidal','Rec Adelanto','Rec Atraso');
 grid on;
 
 figure(2);
 pzmap(g_pz_tg, g_bloq_tg, g_trap_tg, g_adel_tg, g_atras_tg);
+title('Ts = 25 seg');
 legend('Mapeo','Bloqueador','Trapezoidal','Rec Adelanto','Rec Atraso');
 grid on;
 
 
 %% 2.1.3 Diagramas de Bode
 figure(3);
-title('Bode continuo vs equivalentes discretos');
+
 bode(C_continua, g_pz_tc, g_bloq_tc, g_trap_tc, g_adel_tc, g_atras_tc);
-legend('Continua','Mapeo','Bloqueador','Trapezoidal','Rec Adelanto','Rec Atraso');
+%title('Bode continuo vs equivalentes discretos');
+%legend('Continua','Mapeo P-Z','Bloqueador','Trapezoidal','Rec. Adelanto','Rec. Atraso');
 grid on;
 
 figure(4);
-title('Bode continuo vs equivalentes discretos');
 bode(C_continua, g_pz_tg, g_bloq_tg, g_trap_tg, g_adel_tg, g_atras_tg);
-legend('Continua','Mapeo','Bloqueador','Trapezoidal','Rec Adelanto','Rec Atraso');
+%title('Bode continuo vs equivalentes discretos');
+legend('Continua','Mapeo P-Z','Bloqueador','Trapezoidal','Rec. Adelanto','Rec. Atraso');
 grid on;
 
 %% 2.1.4 Controlador discreto
